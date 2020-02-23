@@ -18,20 +18,13 @@ Hanami.configure do
     #    adapter :sql, 'postgresql://localhost/nativeny_api_development'
     #    adapter :sql, 'mysql://localhost/nativeny_api_development'
     #
-    adapter :sql, ENV.fetch('DATABASE_URL')
+    adapter :sql, 'mysql2://localhost/nativeny_api_development'
 
     ##
     # Migrations
     #
     migrations 'db/migrations'
     schema     'db/schema.sql'
-  end
-
-  mailer do
-    root 'lib/nativeny_api/mailers'
-
-    # See https://guides.hanamirb.org/mailers/delivery
-    delivery :test
   end
 
   environment :development do
@@ -41,9 +34,5 @@ Hanami.configure do
 
   environment :production do
     logger level: :info, formatter: :json, filter: []
-
-    mailer do
-      delivery :smtp, address: ENV.fetch('SMTP_HOST'), port: ENV.fetch('SMTP_PORT')
-    end
   end
 end
